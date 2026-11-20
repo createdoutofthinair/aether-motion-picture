@@ -223,6 +223,20 @@ Make one **master frame** showing how the approved elements fit together. Choose
 
 **Example image edit.** “Use the attached platform two-shot as the base. Nia is at frame left holding the folded cream letter in her right hand. Jo is at frame right by the striped pillar, with the red cuff on her left wrist. Jo now lowers her gaze to the letter. Keep the camera, light, both faces, distance between their hands and fold in the paper consistent with the base image.” For a reverse shot, supply the reverse set view and translate that same handoff into the new viewpoint.
 
+
+
+### Generate project stills with GPT image generation
+
+When the artist asks to generate images in GPT, use the built-in image-generation tool by default. Treat the supplied cast, set and prop images as reference inputs, and state the job of each reference in the prompt (identity, wardrobe, set geometry, prop state or visual style). Do not switch to an API/CLI workflow unless the artist explicitly chooses it. For each shot ask for one landscape 16:9 cinematic still composed for a 1920×1080 edit. The prompt is not proof of the returned dimensions: inspect the generated source, preserve it, then make a project copy at exactly 1920×1080. If the source is not 16:9, do not stretch it; use a composition-safe crop or approved background extension and inspect the result at full frame.
+
+The built-in tool places new images under the current Codex generated-images directory by default. Move or copy every selected, project-bound image into the production folder, for example `04_Stills/001_Opening_Signal.png`, and record the original and final paths. Never leave a required still only in the default generated-images folder. Use one image-generation call for each distinct shot prompt. A multi-image count makes variants of one prompt; it is not a substitute for the separate actions, compositions and story beats in a shot manifest.
+
+### Parallelize independent stills with subagents only when requested
+
+The director or artist may explicitly authorize parallel workers. Before dispatch, the coordinator freezes the treatment, cast and set references, visual style, output dimensions, numbered manifest, prompt versions, spend ceiling and destination paths. Split the manifest into fixed, disjoint shot-ID ranges; give every worker the same approved continuity assets and only its assigned rows. Never let two workers write the same shot ID or filename. Each worker uses one built-in image-generation call per unique still and reports the shot ID, exact prompt, reference filenames/roles, source image path, conform path and any rejected attempt. Do not let workers revise the shared treatment or renumber the central manifest.
+
+Dispatch shots that rely only on locked master references in parallel. A shot that inherits a specific hand, prop, pose, camera axis or exit frame from its predecessor must wait for that predecessor's accepted still; then provide the actual accepted frame as a reference where supported. Keep these dependency shots in a later wave. The coordinator alone reconciles results into the central ledger, checks every image against its neighbors and recurring references, confirms exact 1920×1080 dimensions, and marks each shot accepted or needing repair. Parallel completion does not waive the same continuity and delivery checks required for serial work.
+
 **Review stills together before animation.** Compare the master, candidate and edit neighbor side by side. At delivery size inspect faces, proportions, costume details, prop count and handedness. At thumbnail size check blocking, silhouette, architecture and light direction. If a single detail has drifted, repair that detail and recheck the pair. Save the accepted still, its input filenames and versions, what changed, and any mask or layer used. Feed that exact still into animation. Parallel workers can build independent shots once they share the approved masters and versions.
 
 ### Carry the state from one shot to the next
