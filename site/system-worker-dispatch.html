@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101111"><meta name="description" content="This chapter is an operator recipe for splitting a media manifest across workers without losing track of dependencies, paid requests, or deliverables. One coordinator…"><title>Hands-on guide to dispatching media workers · AETHER</title><link rel="stylesheet" href="style.css"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><script defer src="site.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Primary"><a href="manual.html">Manual</a><a href="system.html" aria-current="page">System</a><a href="workshop.html">Prompt lab</a><a href="casebook.html">Casebook</a><a href="film.html">Film</a></nav><a class="download" href="files/production-field-guide.pdf" download="Sound_into_Picture_Illustrated_Field_Guide.pdf" aria-label="Download PDF of the illustrated field guide">Download PDF</a></header><main id="main"><div class="reading-layout"><aside class="reader-sidebar"><a class="eyebrow" href="system.html">System handbook</a><div><a href="system-architecture.html" ><small>01</small>System architecture: protocol, tools, and local work</a><a href="system-auth-and-session.html" ><small>02</small>Authorization boundaries and session verification</a><a href="system-audio-to-edit.html" ><small>03</small>Audio to edit: map cues into timecode</a><a href="system-writing-prompts.html" ><small>04</small>Constructing motion prompts from a fixed first frame</a><a href="system-orchestration.html" ><small>05</small>Orchestrating delegated media work</a><a href="system-worker-dispatch.html" aria-current="page"><small>06</small>Hands-on guide to dispatching media workers</a><a href="system-ledger-and-approvals.html" ><small>07</small>Approval, billing, and the jobs ledger</a><a href="system-failure-recovery.html" ><small>08</small>Task states, lost responses, and safe recovery</a><a href="system-delivery-and-qa.html" ><small>09</small>Watermark-free delivery and quality checks</a></div></aside><article class="reading"><div class="reading-head"><a href="system.html" class="eyebrow">System handbook / System notes</a><h1>Hands-on guide to dispatching media workers</h1></div><details class="contents"><summary>On this page</summary><a href="#section-1">Start with one coordinator and one shared ledger</a><a href="#section-2">Dispatch in dependency-safe waves</a><a href="#section-3">Reusable dispatch brief</a><a href="#section-4">Worker stages</a><a href="#section-5">Reporting envelope</a><a href="#section-6">Polling, retries, and slot release</a></details><div class="prose"><p>This chapter is an operator recipe for splitting a media manifest across workers without losing track of dependencies, paid requests, or deliverables. One coordinator owns the shared plan and ledger. Workers own only the exact rows assigned to them.</p>
+<h2 id="section-1">Start with one coordinator and one shared ledger</h2>
+<p>The coordinator owns the approved manifest, the total authorized budget, the global active-slot limit, the assignment map, polling schedule, and final reconciliation. Workers do not reserve budget for each other, change settings, or take rows from another worker. Keep one durable ledger as the source of truth; a worker may keep a local scratch log, but the coordinator reconciles every state change into the shared ledger.</p>
+<p>Use one row per paid attempt. A useful ledger includes:</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clip label and attempt</td>
+<td>Stable identity, including suffixes such as <code>056A</code> and <code>056B</code></td>
+</tr>
+<tr>
+<td>Owner and dependency</td>
+<td>One worker and any required still, reference, or approval</td>
+</tr>
+<tr>
+<td>Slot state</td>
+<td><code>FREE</code>, <code>RESERVED</code>, <code>ACTIVE</code>, <code>UNKNOWN_CREATION</code>, or <code>RELEASED</code></td>
+</tr>
+<tr>
+<td>Budget state</td>
+<td>Authorized, reserved, spent/estimated, or stopped</td>
+</tr>
+<tr>
+<td>Account check</td>
+<td>Timestamp and positive/valid result for this request</td>
+</tr>
+<tr>
+<td>Submission state</td>
+<td>Not started, accepted, terminal, or unknown</td>
+</tr>
+<tr>
+<td>Task identifiers</td>
+<td>Generation ID and trace ID, stored in the project ledger</td>
+</tr>
+<tr>
+<td>Result and QA</td>
+<td>Terminal state, selected work index, local file, and validation</td>
+</tr>
+</tbody></table></div>
+<p>The coordinator grants a slot before work begins. After acceptance, keep it occupied until a terminal state. If the response is ambiguous, keep the reservation and mark <code>UNKNOWN_CREATION</code>; do not free the slot merely because the worker cannot see a task ID.</p>
+<h2 id="section-2">Dispatch in dependency-safe waves</h2>
+<p>Organize work around prerequisites instead of assigning arbitrary batches all at once:</p>
+<ol>
+<li><strong>Freeze the inputs.</strong> Approve the treatment, manifest rows, prompts, settings, budget, and concurrency policy. Confirm every referenced file exists and assign each row to one owner.</li>
+<li><strong>Approve identity anchors.</strong> If a character reference or continuity still is missing or unapproved, resolve it before releasing shots that depend on it.</li>
+<li><strong>Generate independent stills.</strong> Backgrounds, empty locations, and other frames with no character dependency can move while the identity anchor is being reviewed.</li>
+<li><strong>Release dependent stills.</strong> Once the anchor is approved, workers generate the character shots using that exact reference and report the still path for review.</li>
+<li><strong>Animate approved stills.</strong> A video job is eligible only after its exact first-frame still has been approved and matched to its manifest row.</li>
+<li><strong>Deliver and reconcile.</strong> Refresh the original task result, select the specified work index, use only an eligible watermark-free result, download, validate, and update the shared ledger.</li>
+</ol>
+<p>For example, the project’s captain continuity anchor is still <code>004_Dark_Has_Begun_Captain_Reference.png</code>. If that reference has not been approved, hold captain-dependent images such as the corridor/shoulder view, the captain at the viewport, visor or face close-ups, reflective-face shots, foreground captain frames, and captain-at-hull frames. In the numbered treatment these include character-dependent candidates such as <code>019</code>, <code>022</code>, <code>024–029</code>, <code>030–031</code>, <code>034</code>, <code>042</code>, and <code>045–050</code>; check each manifest description because a number alone does not prove dependency. Independent space or landscape shots such as <code>020</code>, <code>021</code>, or <code>023</code> may proceed only if their actual frame does not rely on captain identity. After the anchor is approved, release the character stills; after each still is approved, release only its matching video row.</p>
+<h2 id="section-3">Reusable dispatch brief</h2>
+<p>Copy this brief for each worker and fill every bracketed field before assignment. The coordinator must record the same reservation and ownership in the shared ledger.</p>
+<pre><code class="language-text">Assignment: [batch or wave name]
+Owner: [worker name]
+Exact clip labels: [explicit labels; include suffixes]
+Allowed files: [manifest, still directory, reference files]
+Allowed writes: [worker result ledger and assigned output paths]
+Dependency gate: [approved still/reference IDs; state what remains blocked]
+Prompt source: [manifest path and exact row identifiers]
+Settings: [model, duration per row, resolution, aspect ratio, output count]
+Budget authorization: [shared reservation identifier and amount/limit]
+Concurrency: [shared global cap, this worker&#39;s allocation, reservation owner]
+Before every paid request: obtain one shared slot, then run a fresh account check.
+Submission: use the pinned approved CLI, exact assigned still and prompt, once.
+Polling: query only the accepted task ID; retain the slot until terminal.
+Retry rule: never retry an accepted or ambiguous request. Return uncertainty to coordinator.
+Reporting: return the required envelope for every row, including failures.
+Stop conditions: missing input, blocked dependency, invalid account check, insufficient
+credits, CLI error, or ambiguous creation state. Stop the affected row and report it.
+</code></pre>
+<p>Do not treat a worker’s local cap as the global cap. The coordinator’s slot ledger is the authority for shared capacity and budget reservations. A local queue must never submit until its shared reservation is granted.</p>
+<h2 id="section-4">Worker stages</h2>
+<p>Each worker follows this same sequence for each assigned row:</p>
+<ol>
+<li><strong>Validate.</strong> Check label, prompt, input image, dimensions, dependency approvals, and exact settings against the manifest. Report mismatches before any paid call.</li>
+<li><strong>Reserve.</strong> Request a shared budget reservation and active slot. Record the grant in the ledger before proceeding.</li>
+<li><strong>Check the account.</strong> Immediately before submission, run the approved account check. Stop if it fails, is missing, nonpositive, or indicates known insufficiency. The check is evidence of current account state, not a lock on credits shared with other workers.</li>
+<li><strong>Submit once.</strong> Use the pinned CLI and exact row inputs. Capture complete local stdout, stderr, and exit code securely. Do not expose credentials, signed URLs, or private response data in routine reports.</li>
+<li><strong>Track the task.</strong> Save the returned generation ID and trace ID. Query that generation ID until terminal. A trace ID helps correlate events; it is not a safe retry key.</li>
+<li><strong>Report terminal state.</strong> Send the coordinator the result envelope, including failures and unresolved uncertainty. Keep the slot occupied until the coordinator ledger reflects terminal state.</li>
+<li><strong>Deliver.</strong> For successful work, refresh the indexed result from the original task, download only an allowed watermark-free result, validate the local media, and report path and QA outcome. Do not substitute a watermarked link if the allowed result is absent.</li>
+</ol>
+<h2 id="section-5">Reporting envelope</h2>
+<p>Report one structured envelope per clip, including rows that stopped before submission. Never put signed result URLs in chat or terminal output. If the coordinator needs a result link in a restricted ledger, store it there with the correct access controls.</p>
+<pre><code class="language-json">{
+  &quot;clip&quot;: &quot;056A&quot;,
+  &quot;attempt&quot;: 1,
+  &quot;worker&quot;: &quot;worker-b&quot;,
+  &quot;stage&quot;: &quot;terminal&quot;,
+  &quot;generationId&quot;: &quot;SYNTHETIC_GENERATION_ID_056A&quot;,
+  &quot;traceId&quot;: &quot;SYNTHETIC_TRACE_ID_056A&quot;,
+  &quot;status&quot;: &quot;COMPLETED&quot;,
+  &quot;workIndex&quot;: 0,
+  &quot;slotState&quot;: &quot;RELEASED&quot;,
+  &quot;localFile&quot;: &quot;BlackStar_Videos/056A_Synthetic_Name.mp4&quot;,
+  &quot;qa&quot;: { &quot;bytes&quot;: 1234567, &quot;ftyp&quot;: true, &quot;dimensions&quot;: &quot;1920x1080&quot; },
+  &quot;watermarkFreeResult&quot;: &quot;stored in restricted ledger; redacted in this example&quot;,
+  &quot;failure&quot;: null
+}
+</code></pre>
+<p>These IDs and file details are synthetic. The envelope shows the shape of a handoff, not a real job record.</p>
+<h2 id="section-6">Polling, retries, and slot release</h2>
+<p>The coordinator schedules polls so that workers do not hammer the service or all query the same job. Set a reasonable interval, such as 60 seconds, then increase it for long-running jobs. A poll timeout with a nonterminal state such as <code>RUNNING</code> or <code>QUEUING</code> means schedule another query for the same task ID; retain its slot and budget reservation.</p>
+<p>When submission is accepted, do not retry it. When a response is lost or creation status is unclear, mark <code>UNKNOWN_CREATION</code>, preserve the local evidence, keep the slot reserved, and ask the coordinator to reconcile. Never submit a second request merely because the first response omitted an ID. A retry requires explicit authorization, a new attempt row, a new slot and budget reservation, and a fresh account check. A terminal failure is still a recorded attempt; it is not automatic permission to retry.</p>
+<p>The coordinator releases a slot only after a confirmed terminal state and records the result or failure. If a result link expires, refresh the original task’s indexed work rather than generating again. If the watermark-free result is unavailable, record the limitation and stop that delivery row without using a watermarked fallback.</p>
+</div><div class="reader-end"><a href="system-orchestration.html"><small>Previous</small>Orchestrating delegated media work</a><a href="system-ledger-and-approvals.html"><small>Next chapter</small>Approval, billing, and the jobs ledger</a></div></article></div></main><footer><div><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><p>Sound into Picture · A music video production manual</p></div><div class="foot-links"><a href="files/music-video-production-brief.md" download>Master prompt (.md)</a><a href="files/production-field-guide.pdf" download>Illustrated field guide (.pdf)</a><a href="archive.html">Shot archive</a><a href="film.html">Watch Black Star</a></div></footer></body></html>

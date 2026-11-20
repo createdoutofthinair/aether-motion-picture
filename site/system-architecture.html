@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101111"><meta name="description" content="Model Context Protocol (MCP) standardizes how an AI application discovers and exchanges context with an MCP server. It defines protocol messages and transports; it does…"><title>System architecture: protocol, tools, and local work · AETHER</title><link rel="stylesheet" href="style.css"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><script defer src="site.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Primary"><a href="manual.html">Manual</a><a href="system.html" aria-current="page">System</a><a href="workshop.html">Prompt lab</a><a href="casebook.html">Casebook</a><a href="film.html">Film</a></nav><a class="download" href="files/production-field-guide.pdf" download="Sound_into_Picture_Illustrated_Field_Guide.pdf" aria-label="Download PDF of the illustrated field guide">Download PDF</a></header><main id="main"><div class="reading-layout"><aside class="reader-sidebar"><a class="eyebrow" href="system.html">System handbook</a><div><a href="system-architecture.html" aria-current="page"><small>01</small>System architecture: protocol, tools, and local work</a><a href="system-auth-and-session.html" ><small>02</small>Authorization boundaries and session verification</a><a href="system-audio-to-edit.html" ><small>03</small>Audio to edit: map cues into timecode</a><a href="system-writing-prompts.html" ><small>04</small>Constructing motion prompts from a fixed first frame</a><a href="system-orchestration.html" ><small>05</small>Orchestrating delegated media work</a><a href="system-worker-dispatch.html" ><small>06</small>Hands-on guide to dispatching media workers</a><a href="system-ledger-and-approvals.html" ><small>07</small>Approval, billing, and the jobs ledger</a><a href="system-failure-recovery.html" ><small>08</small>Task states, lost responses, and safe recovery</a><a href="system-delivery-and-qa.html" ><small>09</small>Watermark-free delivery and quality checks</a></div></aside><article class="reading"><div class="reading-head"><a href="system.html" class="eyebrow">System handbook / System notes</a><h1>System architecture: protocol, tools, and local work</h1></div><details class="contents"><summary>On this page</summary><a href="#section-1">The protocol boundary</a><a href="#section-2">Tools, resources, prompts, skills, and files</a><a href="#section-3">The Kling CLI lane used for this production</a><a href="#section-4">Observed and reusable</a></details><div class="prose"><h2 id="section-1">The protocol boundary</h2>
+<p>Model Context Protocol (MCP) standardizes how an AI application discovers and exchanges context with an MCP server. It defines protocol messages and transports; it does not define how a host uses an LLM, how a production job is scheduled, or how an external provider bills it. The official <a href="https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture">MCP architecture overview</a> describes these boundaries.</p>
+<p>An MCP <strong>host</strong> is the application coordinating the work. The host creates an MCP <strong>client</strong> for each server it connects to; that client maintains the server connection and relays requests and results. An MCP <strong>server</strong> is the program exposing protocol capabilities. A server may run locally over standard input/output (STDIO) or remotely over Streamable HTTP. “Server” describes its protocol role, not its physical location.</p>
+<pre><code class="language-text">AI host
+  ├─ MCP client ── transport ── MCP server A
+  └─ MCP client ── transport ── MCP server B
+</code></pre>
+<p>The MCP data layer carries discovery and JSON-RPC messages. The transport layer establishes the communication channel and, for HTTP deployments, handles transport authorization. A host may also have native tools, command-line runtimes, file access, or sub-agent coordination that are not MCP servers. Do not infer that every available capability is an MCP tool.</p>
+<h2 id="section-2">Tools, resources, prompts, skills, and files</h2>
+<p>These names refer to different things. MCP defines tools, resources, and prompts as server capabilities; “skill” and “workspace file” are separate runtime artifacts in this production workflow.</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Role</th>
+<th>Example in an audiovisual workflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MCP tool</td>
+<td>A schema-defined operation that can perform an action when called</td>
+<td>A connected media server exposing a generation or query operation</td>
+</tr>
+<tr>
+<td>MCP resource</td>
+<td>Data a server exposes to give the host context, identified by a URI</td>
+<td>A server-provided project record or document</td>
+</tr>
+<tr>
+<td>MCP prompt</td>
+<td>A server-provided reusable message template</td>
+<td>A server template for a structured task</td>
+</tr>
+<tr>
+<td>Local skill</td>
+<td>Instructions and supporting references that teach an agent how to use a runtime</td>
+<td>The Kling CLI skill explains capability discovery, account checks, submission, and polling</td>
+</tr>
+<tr>
+<td>Workspace file</td>
+<td>A durable local artifact read or written by an authorized process</td>
+<td>A shot manifest, approved still, MP4, or results CSV</td>
+</tr>
+</tbody></table></div>
+<p>The <a href="https://modelcontextprotocol.io/specification/2025-06-18/server/tools">MCP tools specification</a>, <a href="https://modelcontextprotocol.io/specification/2025-06-18/server/resources">resources specification</a>, and <a href="https://modelcontextprotocol.io/specification/2025-06-18/server/prompts">prompts specification</a> define the first three rows. A local skill does not become a server capability merely because it describes a tool call. Likewise, a file on disk is not automatically an MCP resource; a server must explicitly expose it as one.</p>
+<h2 id="section-3">The Kling CLI lane used for this production</h2>
+<p>For this batch, video creation ran through the pinned Kling Global CLI package at version 0.2.1. The CLI skill states that it owns browser OAuth and that this runtime does not register a host MCP server. The workflow used CLI commands such as <code>tool_list</code>, <code>who_am_i</code>, <code>account</code>, <code>image_to_video</code>, and <code>query_tasks</code>; it did not call the Kling API directly or use a Kling MCP tool.</p>
+<p>The observed production lane can be summarized this way:</p>
+<pre><code class="language-text">Codex host ── local shell ── pinned Kling CLI 0.2.1 ── provider service
+     │                              │
+     │                              └─ owns provider browser OAuth
+     └─ workspace files: stills, manifest, ledgers, downloaded MP4s
+
+MCP-connected services are a separate lane and were not the Kling
+video-generation interface used for this batch.
+</code></pre>
+<p>This distinction matters when troubleshooting. An MCP <code>tools/list</code> response describes tools exposed by an MCP server. Kling <code>who_am_i</code> describes the current CLI account’s available Kling models and arguments. Those are different discovery surfaces, with different credentials and capability declarations. Do not substitute one surface’s capability list or authorization token for the other.</p>
+<p>The production dependency chain was:</p>
+<ol>
+<li>Read the shot treatment and approved still.</li>
+<li>Read one manifest row with its prompt and duration.</li>
+<li>Discover the live CLI model and its legal arguments.</li>
+<li>Check current provider credits, then submit once.</li>
+<li>Poll the returned task ID to terminal status.</li>
+<li>Refresh the selected work and download its authorized watermark-free URL.</li>
+<li>Record and verify the local MP4.</li>
+</ol>
+<h2 id="section-4">Observed and reusable</h2>
+<p><strong>Observed:</strong> the Kling video lane used the pinned CLI and its live model declaration, while the stills and manifests remained local workspace files. The consolidated results ledger preserved the selected generation ID, work index, status, result link and attempt notes. A trace ID, when returned, belongs in the private per-attempt record.</p>
+<p><strong>Reusable:</strong> write down the integration boundary before work starts. Name the host, client or CLI, server/provider, auth surface, durable input artifacts, and output ledger. Then route each operation through its intended interface and retain evidence from that interface.</p>
+</div><div class="reader-end"><span></span><a href="system-auth-and-session.html"><small>Next chapter</small>Authorization boundaries and session verification</a></div></article></div></main><footer><div><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><p>Sound into Picture · A music video production manual</p></div><div class="foot-links"><a href="files/music-video-production-brief.md" download>Master prompt (.md)</a><a href="files/production-field-guide.pdf" download>Illustrated field guide (.pdf)</a><a href="archive.html">Shot archive</a><a href="film.html">Watch Black Star</a></div></footer></body></html>

@@ -1,0 +1,73 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101111"><meta name="description" content="Convert musical timing into a legal source duration, with handles for the edit."><title>Read the model limits · AETHER</title><link rel="stylesheet" href="style.css"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><script defer src="site.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Primary"><a href="manual.html" aria-current="page">Manual</a><a href="system.html">System</a><a href="workshop.html">Prompt lab</a><a href="casebook.html">Casebook</a><a href="film.html">Film</a></nav><a class="download" href="files/production-field-guide.pdf" download="Sound_into_Picture_Illustrated_Field_Guide.pdf" aria-label="Download PDF of the illustrated field guide">Download PDF</a></header><main id="main"><div class="reading-layout"><aside class="reader-sidebar"><a class="eyebrow" href="manual.html">Production manual</a><div><a href="interview.html" ><small>01</small>Interview the artist</a><a href="audio-map.html" ><small>02</small>Map the song</a><a href="story.html" ><small>03</small>Give the story a cause</a><a href="model-limits.html" aria-current="page"><small>04</small>Read the model limits</a><a href="rough-board.html" ><small>05</small>Cut the rough board</a><a href="continuity.html" ><small>06</small>Establish the look</a><a href="keyframes.html" ><small>07</small>Prepare the hardest cut</a><a href="moving-cut.html" ><small>08</small>Direct the first moving cut</a><a href="production.html" ><small>09</small>Produce the sequences</a><a href="review.html" ><small>10</small>Review the whole film</a><a href="delivery.html" ><small>11</small>Deliver the working project</a></div></aside><article class="reading"><div class="reading-head"><a href="manual.html" class="eyebrow">Production manual / Step 04</a><h1>Read the model limits</h1><p class="standfirst">Convert musical timing into a legal source duration, with handles for the edit.</p></div><p class="chapter-tool"><a href="workshop.html#timing">Try the render-length calculator</a></p><div class="prose"><h3 id="section-1">Read the duration options before locking the shot list</h3>
+<p>Use the authenticated CLI&#39;s <code>tool_list</code> to confirm the generation tool, then read <code>who_am_i</code> for the current account. Under <code>availableModels</code> (or <code>available_models</code>), find the tool, its selected model, and the <code>arguments</code> entry named <code>duration</code>. Read its <strong><code>allowedValues</code></strong>, unit, default and any conditions that apply to the planned resolution, input roles, or single/multi-shot mode. Record the date, tool, model, allowed seconds and applicable conditions in the production record. Refresh the record after a model, tool, account or relevant mode change, or a parameter rejection. If the options are unavailable or ambiguous, continue planning edit beats and defer paid submission until the allowed lengths are confirmed.</p>
+<p><strong>Account snapshot for comparison.</strong> The authenticated CLI returned these values for <code>image_to_video</code> on 20 November 2026. An interval in this table means <strong>every whole second</strong> in the interval was explicitly listed. Future sessions should use their own live response.</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>Model listed under <code>image_to_video</code></th>
+<th>Allowed render seconds</th>
+<th>Within this project&#39;s 15 s cap</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kling 2.5, 2.6</td>
+<td>5 or 10</td>
+<td>5 or 10</td>
+</tr>
+<tr>
+<td>Kling O1</td>
+<td>3–10</td>
+<td>3–10</td>
+</tr>
+<tr>
+<td>Kling 3.0, 3.0 Omni, 3.0 Turbo</td>
+<td>3–15</td>
+<td>3–15</td>
+</tr>
+<tr>
+<td>Kling 4.0</td>
+<td>3–30</td>
+<td>3–15</td>
+</tr>
+<tr>
+<td>Kling 4.0 Flash</td>
+<td>3–20</td>
+<td>3–15</td>
+</tr>
+</tbody></table></div>
+<p>The standard Kling 3.0 duration description says longer durations <em>may</em> require <code>prefer_multi_shots</code>. Check that condition when planning an unbroken take. Other generation tools have their own model entries.</p>
+<p><strong>Choose and validate each shot.</strong> Add edit frames and required handle frames, then divide by the timeline frame rate to get the minimum source seconds at normal playback speed. From the live allowed values that satisfy the shot&#39;s settings and the artist&#39;s cap, choose the smallest value that covers that minimum. Assign any spare frames to trim allowance. Save the chosen seconds in the manifest, use that same value in the Kling request, and check membership again before submission. If no value fits, redesign the coverage or revise the handles on the timeline. Update the stills, end pose, prompt timing and estimate together.</p>
+<p>For example, a 7 s edit plus two 1 s handles needs 9 s of source. On the verified 4.0 model, request 9 s. On the verified 2.6 model, request 10 s and keep the extra second for trimming. A 12 s uninterrupted edit cannot fit 2.6&#39;s longest source even with zero handles. Plan a cut and its matching stills, or choose an approved model and mode that supports the take.</p>
+<p>Track <strong>edit duration</strong> (frames used on the song timeline) and <strong>render duration</strong> (the source clip including handles). Time the performance against the recording: setup → decision or action → consequence. Add head/tail handles where a trim, movement match, dissolve, or sustained reaction needs them. Choose the shortest supported render length that fits this performance <strong>and</strong> its handles. Use up to <strong>15 seconds per generated clip</strong> when the scene earns it. A brief insert may use less than the model&#39;s minimum in the finished edit.</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>Creative timing range (choose a legal render length above)</th>
+<th>What can justify it</th>
+<th>Camera or performance decision</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3–4 s</td>
+<td>Insert, visual punctuation, interruption, quick reaction</td>
+<td>Begin close to the action. Land one unambiguous change.</td>
+</tr>
+<tr>
+<td>5–7 s</td>
+<td>A gesture followed by a readable response, short pursuit, one reveal</td>
+<td>Let the subject initiate the move. Settle long enough to catch the response.</td>
+</tr>
+<tr>
+<td>8–11 s</td>
+<td>Tracking shot through a space, tension that builds before a decision, an exchange in two planes</td>
+<td>Use blocking or a foreground pass to change what the audience can see mid-take.</td>
+</tr>
+<tr>
+<td>12–15 s</td>
+<td>A sustained performance or continuous action whose emotional effect depends on watching the change happen</td>
+<td>Design an opening position, a middle turn on a musical cue, and a distinct ending composition. Budget handles inside the cap.</td>
+</tr>
+</tbody></table></div>
+<p>If a 15-second <strong>edit</strong> also needs handles, redesign the coverage, overlap another shot, or choose an edit point that works without handles. If the selected model offers different increments, choose a supported duration and trim to the frame in the edit. A shorter supported model can cover a long beat with planned cuts. Agree on a different model if an unbroken long take is essential. Allocate the shot count after timing the story. Raw footage can exceed the song runtime.</p>
+<p><strong>Put the decisive action inside the selected frames.</strong> A handle is spare footage the editor can trim. A nine-second render with one second of handle at each end gives a seven-second edit from source second 1 up to second 8. If the lyric accent occurs five seconds into this edit, aim the corresponding gesture at source second 6. Mark the actual frame where it lands after rendering and adjust the source in/out against the song. When a retime is needed, inspect hands, footfalls, lip sync and camera speed through the adjustment.</p>
+</div><div class="reader-end"><a href="story.html"><small>Previous</small>Give the story a cause</a><a href="rough-board.html"><small>Next chapter</small>Cut the rough board</a></div></article></div></main><footer><div><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><p>Sound into Picture · A music video production manual</p></div><div class="foot-links"><a href="files/music-video-production-brief.md" download>Master prompt (.md)</a><a href="files/production-field-guide.pdf" download>Illustrated field guide (.pdf)</a><a href="archive.html">Shot archive</a><a href="film.html">Watch Black Star</a></div></footer></body></html>

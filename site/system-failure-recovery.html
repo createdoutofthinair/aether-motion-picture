@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101111"><meta name="description" content="An image-to-video command may return an accepted task ID before any video exists. Record the generation ID immediately, then use the pinned CLI’s query_tasks…"><title>Task states, lost responses, and safe recovery · AETHER</title><link rel="stylesheet" href="style.css"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><script defer src="site.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Primary"><a href="manual.html">Manual</a><a href="system.html" aria-current="page">System</a><a href="workshop.html">Prompt lab</a><a href="casebook.html">Casebook</a><a href="film.html">Film</a></nav><a class="download" href="files/production-field-guide.pdf" download="Sound_into_Picture_Illustrated_Field_Guide.pdf" aria-label="Download PDF of the illustrated field guide">Download PDF</a></header><main id="main"><div class="reading-layout"><aside class="reader-sidebar"><a class="eyebrow" href="system.html">System handbook</a><div><a href="system-architecture.html" ><small>01</small>System architecture: protocol, tools, and local work</a><a href="system-auth-and-session.html" ><small>02</small>Authorization boundaries and session verification</a><a href="system-audio-to-edit.html" ><small>03</small>Audio to edit: map cues into timecode</a><a href="system-writing-prompts.html" ><small>04</small>Constructing motion prompts from a fixed first frame</a><a href="system-orchestration.html" ><small>05</small>Orchestrating delegated media work</a><a href="system-worker-dispatch.html" ><small>06</small>Hands-on guide to dispatching media workers</a><a href="system-ledger-and-approvals.html" ><small>07</small>Approval, billing, and the jobs ledger</a><a href="system-failure-recovery.html" aria-current="page"><small>08</small>Task states, lost responses, and safe recovery</a><a href="system-delivery-and-qa.html" ><small>09</small>Watermark-free delivery and quality checks</a></div></aside><article class="reading"><div class="reading-head"><a href="system.html" class="eyebrow">System handbook / System notes</a><h1>Task states, lost responses, and safe recovery</h1></div><details class="contents"><summary>On this page</summary><a href="#section-1">Accepted is not completed</a><a href="#section-2">Interpret polling carefully</a><a href="#section-3">Lost submission responses</a><a href="#section-4">Sanitized recovery examples</a></details><div class="prose"><h2 id="section-1">Accepted is not completed</h2>
+<p>An image-to-video command may return an accepted task ID before any video exists. Record the generation ID immediately, then use the pinned CLI’s <code>query_tasks &lt;generationId&gt;</code> command until the task is terminal. A task-level <code>COMPLETED</code> state is not enough if its selected work is missing, failed, or the wrong content type. Require the selected indexed work to complete as a video.</p>
+<p><code>generationId</code> identifies the provider task. <code>taskTraceId</code> groups related CLI operations; it does not identify a task, provide history lookup, or prevent a duplicate charge. Preserve the original <code>works[]</code> index exactly as returned, including zero-based index 0 when that is what the provider returns.</p>
+<h2 id="section-2">Interpret polling carefully</h2>
+<p>The CLI can time out its bounded poll while the task itself remains <code>RUNNING</code> or <code>QUEUING</code>. In that case, keep the same task ID, wait, and query again. A poll timeout is not terminal failure and is not permission to submit another generation.</p>
+<p>Capture complete stdout, stderr, and exit code privately before parsing. Some timed-out query responses can have a nonzero CLI exit code while still containing a valid JSON body that reports <code>timedOut: true</code> and the current task state. Read both the exit code and the structured body; never expose signed URLs from result output during diagnostics.</p>
+<h2 id="section-3">Lost submission responses</h2>
+<p>If a paid submission returns an unparseable response or no generation ID, creation may have succeeded even if the local command failed. Do not replay the command. Preserve the original prompt/settings and diagnostic files, mark the row <code>UNKNOWN_CREATION_STATE</code>, and report that no task lookup is available by trace ID. Request explicit authorization before any replacement, including acceptance that a duplicate charge may be possible.</p>
+<p>If a generation ID was returned, only query that ID. If a query returns a terminal provider failure, preserve the exact terminal status and error summary, and do not automatically retry. A revised prompt, changed model, or replacement request is a new paid operation and requires authorization.</p>
+<h2 id="section-4">Sanitized recovery examples</h2>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Correct ledger state</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>COMPLETED</code>, work 0 is a successful video</td>
+<td><code>COMPLETED</code></td>
+<td>Refresh the same task and select work 0 for delivery</td>
+</tr>
+<tr>
+<td>Poll times out, task says <code>RUNNING</code></td>
+<td><code>RUNNING</code></td>
+<td>Query the same generation ID later</td>
+</tr>
+<tr>
+<td>Submit response has no usable task ID</td>
+<td><code>UNKNOWN_CREATION_STATE</code></td>
+<td>Stop; do not retry without explicit duplicate-risk approval</td>
+</tr>
+<tr>
+<td>Work 0 is absent or is an image/cover</td>
+<td><code>UNUSABLE_RESULT</code></td>
+<td>Record it; do not download the cover as the video</td>
+</tr>
+<tr>
+<td>Terminal provider error</td>
+<td><code>FAILED</code></td>
+<td>Report exact safe error summary; wait for a user-authorized next step</td>
+</tr>
+</tbody></table></div>
+<p>The <a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization">MCP authorization specification</a> governs MCP transport authentication, not a provider CLI’s task lifecycle. Keep those recovery paths separate: an expired MCP token may require reauthorization; a queued Kling generation requires polling its provider generation ID.</p>
+</div><div class="reader-end"><a href="system-ledger-and-approvals.html"><small>Previous</small>Approval, billing, and the jobs ledger</a><a href="system-delivery-and-qa.html"><small>Next chapter</small>Watermark-free delivery and quality checks</a></div></article></div></main><footer><div><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><p>Sound into Picture · A music video production manual</p></div><div class="foot-links"><a href="files/music-video-production-brief.md" download>Master prompt (.md)</a><a href="files/production-field-guide.pdf" download>Illustrated field guide (.pdf)</a><a href="archive.html">Shot archive</a><a href="film.html">Watch Black Star</a></div></footer></body></html>

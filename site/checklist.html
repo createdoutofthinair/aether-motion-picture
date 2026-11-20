@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101111"><meta name="description" content="A cinematic field guide to producing music videos with AI."><title>Execution checklist · AETHER</title><link rel="stylesheet" href="style.css"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><script defer src="site.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Primary"><a href="manual.html" aria-current="page">Manual</a><a href="system.html">System</a><a href="workshop.html">Prompt lab</a><a href="casebook.html">Casebook</a><a href="film.html">Film</a></nav><a class="download" href="files/production-field-guide.pdf" download="Sound_into_Picture_Illustrated_Field_Guide.pdf" aria-label="Download PDF of the illustrated field guide">Download PDF</a></header><main id="main"><section class="banner"><img src="assets/shot-004.webp" alt=""><div class="banner-shade"></div><div><span class="eyebrow">Start a session</span><h1>Run the <em>checklist.</em></h1><p>Bring the master recording, lyrics and artwork into a new session. Each stage names the evidence needed to advance.</p></div></section><article class="standalone prose"><p><strong>To start a new session</strong>, attach this file, your final song mix, lyrics and any artwork. Paste this instruction:</p>
+<blockquote>
+<p>Follow the production checklist in this file. Start at Step 01. In your first reply, name the materials you can access, ask for my art direction and any missing essentials, and wait for my answers. Then work through the steps in order, saving and checking each output. Use my creative direction and deliver the actual numbered files.</p>
+</blockquote>
+<h2>Production checklist — start here</h2>
+<p>The <strong>steps</strong> give the order of work. The <strong>sections</strong> below the checklist explain how to do each step. Read the section named in the current row as needed. The examples illustrate technique. Take each project&#39;s style, cast, story and delivery choices from its own brief.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Evidence needed to advance</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01 · Interview</td>
+<td>Inventory the files you can open. Ask what the song means, what we should see and feel, and which styles or references fit. Gather the remaining essentials from §1. Wait for the artist&#39;s answers or delegated choices.</td>
+<td>Save the agreed brief, available inputs, delivery specs, spending authority and review preferences.</td>
+</tr>
+<tr>
+<td>02 · Map the song</td>
+<td>Analyze the final audio and align the lyrics. Cover the intro through the last decay (§2).</td>
+<td>Save <code>Tension_Map.csv</code> and <code>Tension_Overview.png</code>. Check decisive markers against the recording. Each section has timecodes, audible cues and an intended visual response.</td>
+</tr>
+<tr>
+<td>03 · Tell the story</td>
+<td>Write the treatment and one card per sequence (§3). Tie the opening, turn and payoff to cue IDs.</td>
+<td>Read the cards in order. Each change of place, time or character state has a cause or an intentional cue the viewer can follow.</td>
+</tr>
+<tr>
+<td>04 · Read Kling&#39;s limits</td>
+<td>Read the signed-in account&#39;s metadata for the chosen tool and model (§5). Save its duration values and relevant mode restrictions.</td>
+<td>A dated capability record identifies the legal render lengths within the project&#39;s 15-second cap.</td>
+</tr>
+<tr>
+<td>05 · Time the rough board</td>
+<td>Build a shot list and full-song animatic with placeholders (§§2–5). Mark each shot&#39;s lyric, action, camera move, cut, handles and legal render duration.</td>
+<td>Play the whole board with the master. Check the runtime, the story turn and the transition into each sequence. Revise weak beats here.</td>
+</tr>
+<tr>
+<td>06 · Establish the look</td>
+<td>Make the agreed cast, wardrobe, prop and set references. Assemble a master frame for each recurring scene (§6).</td>
+<td>Save the reference images and versions. Check likeness, layout, light direction and intentional changes against the brief.</td>
+</tr>
+<tr>
+<td>07 · Prepare the hardest cut</td>
+<td>Pick two or three consecutive production shots with a difficult handoff. Make their numbered key stills from the approved references and write the Kling prompts (§§6–7).</td>
+<td>Inspect the stills together. Each action can start from its opening frame, and the intended exit pose leads into the next angle.</td>
+</tr>
+<tr>
+<td>08 · Watch those shots moving</td>
+<td>Within the agreed budget and applicable approvals, render and download those shots. Cut the actual takes over the intended lyric (§8).</td>
+<td>Watch the excerpt at edit speed. Check emotion, sync, identity and geography. If the cut fails, repair the still, prompt or trim and review again. Keep the accepted shots.</td>
+</tr>
+<tr>
+<td>09 · Produce the other sequences</td>
+<td>Repeat the shot loop below for each remaining shot (§§6–8). Replace placeholders on the timeline as files arrive.</td>
+<td>Every planned shot ID has an accepted local still and playable watermark-free clip. Record its references, prompt and selected source frames.</td>
+</tr>
+<tr>
+<td>10 · Review the full cut</td>
+<td>Watch the complete sequence with the final mix. Make the agreed editorial and finishing changes (§8).</td>
+<td>Check the emotional turn, continuity, lyric sync and picture endpoint. Save the review cut and edit map.</td>
+</tr>
+<tr>
+<td>11 · Deliver</td>
+<td>Reconcile the shot list with the files on disk and open the agreed deliverables (§9).</td>
+<td>Report verified counts and link the local folders, tension map, edit map and delivery index. Identify any outstanding item explicitly.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Shot loop for Steps 07–09.</strong> Select the shot and cue IDs → load the actual reference images → prepare and inspect the numbered still → validate the prompt and duration → submit once and save the job ID → retrieve and download the successful take → watch it alongside its neighbors with audio → record the selected frames. If another shot depends on the exit pose, save the actual cut frame before building that shot.</p>
+<p><strong>Keep your place.</strong> After Step 01, maintain a short <code>Production_Status.md</code> in the project folder. Update it after each step and during batches. On resuming a session, check the evidence files and query existing job IDs before continuing at the first unfinished action.</p>
+<pre><code class="language-text">Current step and shot IDs:
+Completed work and local evidence paths:
+Active jobs and IDs:
+Missing input or decision, if any:
+Next action:
+</code></pre>
+<p>Continue automatically within the agreed scope and budget. Ask the artist at agreed review points or when an input, decision or authorization is needed. If the master audio or an essential tool is unavailable, record the affected step as <strong>waiting</strong> and continue independent preparation. Mark provisional timing and unreviewed media explicitly. Advance when the evidence in the last column exists.</p>
+<p><a href="interview.html">Begin with the artist interview</a></p></article></main><footer><div><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><p>Sound into Picture · A music video production manual</p></div><div class="foot-links"><a href="files/music-video-production-brief.md" download>Master prompt (.md)</a><a href="files/production-field-guide.pdf" download>Illustrated field guide (.pdf)</a><a href="archive.html">Shot archive</a><a href="film.html">Watch Black Star</a></div></footer></body></html>

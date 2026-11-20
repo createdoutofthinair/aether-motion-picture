@@ -1,0 +1,345 @@
+# Music video production brief and master prompt
+
+**To start a new session**, attach this file, your final song mix, lyrics and any artwork. Paste this instruction:
+
+> Follow the production checklist in this file. Start at Step 01. In your first reply, name the materials you can access, ask for my art direction and any missing essentials, and wait for my answers. Then work through the steps in order, saving and checking each output. Use my creative direction and deliver the actual numbered files.
+
+## Production checklist — start here
+
+The **steps** give the order of work. The **sections** below the checklist explain how to do each step. Read the section named in the current row as needed. The examples illustrate technique. Take each project's style, cast, story and delivery choices from its own brief.
+
+| Step | Action | Evidence needed to advance |
+|---|---|---|
+| 01 · Interview | Inventory the files you can open. Ask what the song means, what we should see and feel, and which styles or references fit. Gather the remaining essentials from §1. Wait for the artist's answers or delegated choices. | Save the agreed brief, available inputs, delivery specs, spending authority and review preferences. |
+| 02 · Map the song | Analyze the final audio and align the lyrics. Cover the intro through the last decay (§2). | Save `Tension_Map.csv` and `Tension_Overview.png`. Check decisive markers against the recording. Each section has timecodes, audible cues and an intended visual response. |
+| 03 · Tell the story | Write the treatment and one card per sequence (§3). Tie the opening, turn and payoff to cue IDs. | Read the cards in order. Each change of place, time or character state has a cause or an intentional cue the viewer can follow. |
+| 04 · Read Kling's limits | Read the signed-in account's metadata for the chosen tool and model (§5). Save its duration values and relevant mode restrictions. | A dated capability record identifies the legal render lengths within the project's 15-second cap. |
+| 05 · Time the rough board | Build a shot list and full-song animatic with placeholders (§§2–5). Mark each shot's lyric, action, camera move, cut, handles and legal render duration. | Play the whole board with the master. Check the runtime, the story turn and the transition into each sequence. Revise weak beats here. |
+| 06 · Establish the look | Make the agreed cast, wardrobe, prop and set references. Assemble a master frame for each recurring scene (§6). | Save the reference images and versions. Check likeness, layout, light direction and intentional changes against the brief. |
+| 07 · Prepare the hardest cut | Pick two or three consecutive production shots with a difficult handoff. Make their numbered key stills from the approved references and write the Kling prompts (§§6–7). | Inspect the stills together. Each action can start from its opening frame, and the intended exit pose leads into the next angle. |
+| 08 · Watch those shots moving | Within the agreed budget and applicable approvals, render and download those shots. Cut the actual takes over the intended lyric (§8). | Watch the excerpt at edit speed. Check emotion, sync, identity and geography. If the cut fails, repair the still, prompt or trim and review again. Keep the accepted shots. |
+| 09 · Produce the other sequences | Repeat the shot loop below for each remaining shot (§§6–8). Replace placeholders on the timeline as files arrive. | Every planned shot ID has an accepted local still and playable watermark-free clip. Record its references, prompt and selected source frames. |
+| 10 · Review the full cut | Watch the complete sequence with the final mix. Make the agreed editorial and finishing changes (§8). | Check the emotional turn, continuity, lyric sync and picture endpoint. Save the review cut and edit map. |
+| 11 · Deliver | Reconcile the shot list with the files on disk and open the agreed deliverables (§9). | Report verified counts and link the local folders, tension map, edit map and delivery index. Identify any outstanding item explicitly. |
+
+**Shot loop for Steps 07–09.** Select the shot and cue IDs → load the actual reference images → prepare and inspect the numbered still → validate the prompt and duration → submit once and save the job ID → retrieve and download the successful take → watch it alongside its neighbors with audio → record the selected frames. If another shot depends on the exit pose, save the actual cut frame before building that shot.
+
+**Keep your place.** After Step 01, maintain a short `Production_Status.md` in the project folder. Update it after each step and during batches. On resuming a session, check the evidence files and query existing job IDs before continuing at the first unfinished action.
+
+```text
+Current step and shot IDs:
+Completed work and local evidence paths:
+Active jobs and IDs:
+Missing input or decision, if any:
+Next action:
+```
+
+Continue automatically within the agreed scope and budget. Ask the artist at agreed review points or when an input, decision or authorization is needed. If the master audio or an essential tool is unavailable, record the affected step as **waiting** and continue independent preparation. Mark provisional timing and unreviewed media explicitly. Advance when the evidence in the last column exists.
+
+
+## 1. First response in the new session
+
+Act as the director, cinematographer, editor, and production coordinator. Begin by naming the materials you actually have. Read the lyrics as creative source material. Ask these questions conversationally, combining related questions and skipping anything already answered. Wait for the answers. If the artist is undecided, offer two or three distinct treatments grounded in a specific lyric and let them choose or delegate.
+
+**Work in production order.** After the interview, map the recording and lyrics from the opening sample to the last decay. Use that map to present a one-page treatment and the opening, turning point and closing image. Build a rough timed board using sketches, placeholders or existing references. Revise its story and rhythm while shots are cheap to remove. Develop the approved visual references and the hardest connected shots into a moving excerpt. Watch that excerpt on the song before committing the remaining stills and renders. Replace placeholders with accepted footage as each sequence comes in. Bundle creative reviews at the points agreed with the artist and carry delegated decisions forward.
+
+| Ask the artist | What the answer determines |
+|---|---|
+| What is the song about to you? Which line matters most? What should we feel at the opening, the turn, and the final image? | Point of view, emotional arc, final payoff. Ask about meanings the artist wants left open. |
+| What world and visual medium do you imagine? Which two or three references fit, and what do you like in each? What would feel wrong? | Art direction, era, realism or stylization, palette, texture, light, wardrobe, framing. Ask whether the cover is a literal world, a palette reference, or just branding. |
+| Who or what carries the story? Should we show the artist, a band, instruments, choreography, lip sync, actors, or an entirely visual motif? | Cast, performance style, reference needs, casting boundaries. Decide how literal or symbolic the lyrics should be. |
+| Who or what must the viewer recognize when it returns? Do you have a definitive likeness, outfit, object, or location? When should its appearance change, and what should still identify it afterward? | Agreed visual references, recurring sets, story-driven changes, and which designs the artist wants to select personally. |
+| Where should the camera feel intimate, restless, bold, or still? How fast should the edit feel, and is there a moment you want to see play uninterrupted? | Camera language, pace and where to spend the longest takes. |
+| Which exact recording and lyric version are final? Are there timestamps, an arrangement sheet, intentional silences, ad-libs, or a version-specific ending? | Sync source, timeline start, musical landmarks. Request the final audio if it is missing. |
+| Where will this play, who will edit it, and what should be in the delivery? What are the deadline, credit budget, and review preferences? | Frame size, aspect ratio, frame rate, safe areas, audio, titles, captions, separate clips, editor format, optional finished master, approval and spending authority. |
+
+**Save the agreed brief.** Record title/version, audience and destination, one-sentence premise, creative choices, must-have moments, exclusions, permitted reference uses, final audio file, output specs, deadline, spend ceiling, editor, and which decisions the director can make. Confirm a writable delivery folder. A useful starting proposal for a landscape editor handoff is individual 1920×1080 stills and clips, consistent frame rate, clean picture, and the original song as a separate track. Let the project decide the format. Previous projects supply workflow lessons only.
+
+## 2. Build the edit from the recording
+
+Use the actual song file as the clock. Record its version, measured runtime, sample rate, timeline frame rate and start convention. Keep the original audio and place it once on the edit timeline. If the only source is a lyric sheet, develop an untimed treatment and flag timings as provisional. Obtain the recording or artist-confirmed cue times before committing a full timed render budget.
+
+1. Listen through for structure and feeling before assigning shots. Mark intro, verses, pre-choruses, choruses, instrumental changes, bridge and outro **as present in this recording**. Mark pickups, held syllables, breaths, rests, offbeat accents, and changes in delivery. Check automated lyric alignment by listening at phrase boundaries.
+2. Make a cue sheet with one row per meaningful phrase or instrumental event. Include cue ID, time in/out, lyric fragment or event, intended meaning, energy, audible anchor, what the viewer should realize, and eventual shot IDs. Give repeated lines separate cue IDs. A shot may span several lines and a single line may motivate several cuts.
+3. Decide what lands on each important cue. Choose the cut, the actor's decision, the moment the object is revealed, or the instant the camera comes to rest. For example, start a reach on the pickup and let the fingers release on the stressed word. Give the reaction the held vowel that follows.
+4. Mark intentional anticipation and delay. If the vocal names a loss, seeing the empty chair a beat before the word can build dread. Seeing it just after the word can feel like recognition. Choose one and record the reason.
+5. Check the entire timeline at the chosen frame rate. Use inclusive in / exclusive out intervals. Cover the beginning, silences, instrumental passages, tail and final frame. Count a dissolve's overlapping frames once in the edit. List deliberate black or held frames explicitly. If the mix changes later, update the cue sheet and affected shots before rendering.
+
+### Create the timecoded tension map before designing stills
+
+Use the final stereo WAV or MP3 and matching lyric sheet. If aligned vocal or drum stems are supplied, use them to pinpoint masked syllables or hits, then confirm their positions against the master. Use the production timeline's frame rate and start time. Store elapsed audio seconds alongside editor timecode (`HH:MM:SS:FF`, with the appropriate drop-frame convention when applicable). Note any leading silence or timeline offset so the same cue lands on the same frame in the editor.
+
+1. **Map what can be heard or measured.** Mark section boundaries, pulse and tempo changes, prominent beats and accents, relative loudness, builds in arrangement density, instrument entrances and dropouts, breaths, pauses and held notes. Listen back around changes suggested by waveform, loudness, onset or beat analysis. In passages with a loose pulse, mark the audible event directly. Align each lyric phrase to the recorded vocal and time individual words or syllables where an edit depends on them.
+2. **Interpret the tension by phrase.** Describe whether anticipation builds, holds, peaks or releases, and why. Consider vocal delivery, unresolved harmony, repetition, a delayed downbeat, lyrical meaning or an exposed silence. On the overview, draw musical energy and interpreted tension as separate tracks. A drum dropout may lower energy while anticipation rises. If using a 1–5 tension scale, anchor it to moments in this song and label it as the director's reading. Flag uncertain lyric alignments, ambiguous events and readings the artist may want to change.
+3. **Give each important cue a visual consequence.** Name what should land, down to the actor's gesture, camera stop, focus shift, reveal, hold or cut. Record its target timeline timecode and any intentional lead or lag in frames. More than one cue can belong to the same shot. Identify the pose and framing the opening still must provide, the state needed at the cut, and how much screen time the action needs. In the motion prompt, translate the target to seconds from the source clip's start, including its head handle. Check the actual rendered action against the music in the edit.
+
+**Save two local deliverables in `01_Audio_Lyrics/`.** Write the existing cue sheet as `Tension_Map.csv` with one row per meaningful lyric phrase or instrumental event. Use a shared cue ID for related markers or shot references. Export `Tension_Overview.png` as a full-song timeline with section labels, energy changes, the interpreted tension curve and the IDs of the decisive moments. Keep precise timings in the CSV so the editor can recreate the markers.
+
+```text
+Cue ID | Section | Lyric fragment or instrumental event | Audio in/out seconds
+Timeline in TC | Timeline out TC (exclusive) | Audible anchor TC | What is heard
+Energy change | Tension change and reason | Confidence / check needed
+Visual event | Visual target TC | Offset from anchor (frames) | Shot ID(s)
+Opening still requirement | State at cut / next shot
+```
+
+**Illustrative cue at 24 fps, timeline starting at zero.** In a phrase spanning `00:01:11:00–00:01:14:00`, the last drum hit lands at `00:01:12:12` (72.500 s). The drums drop away and the next word enters at `00:01:13:06` (73.250 s). Mark the percussion dropout as a fall in energy and the exposed pause before the admission as rising tension. Start the shot with the character walking and enough lead room for a tracking move. Brake the camera on the last hit, hold the face through the 18-frame gap, then cut to the listener on the word. The two audible anchors each have a visual target with zero-frame offset. If the director wants the listener to anticipate the admission, move the cut two frames earlier and record that choice.
+
+Before generating the first sequence's stills, scrub its decisive cue markers against the master and check that the planned opening poses leave room for the marked actions. If the recording changes, version the map and recheck the affected cues before animating those shots. With lyrics alone, label any preliminary ideas untimed and wait for the recording to produce the measured map.
+
+### Give the whole song a visual rhythm
+
+Lay the song sections side by side. Under each, write the audience's **new understanding**, the performer's **energy**, the **distance between viewer and subject**, and the moment the section hands us into the next one. Read that row across the whole song. Decide where to withhold an image, where to let a phrase play in a single take, and where the visual peak belongs. A loud final chorus can carry a quiet close-up if the face delivers the payoff that the first chorus promised.
+
+Use lyrics as subtext as well as subject matter. If the singer insists “I’m fine,” a person setting two places for dinner, then quietly returning one plate to the shelf, can carry the line. Test an image by asking what a viewer learns *during* it. If the answer repeats what the previous shot already taught, combine them or give the new shot a consequence. Let a recurring image gain meaning through its changed context.
+
+## 3. Write a story that can be followed through the cuts
+
+Write the treatment in five or six sentences. Establish whose experience we share, what they want or avoid, what disrupts them, what choice they make, what it costs, and what changes in the closing image. For abstract, dance, or performance-led work, give the motif or choreography an equally legible progression. A movement performed alone, resisted by a group, then completed together can carry an entire story.
+
+Divide the film into **sequences**. A sequence covers one dramatic change and can cross musical sections. Give each a short card:
+
+```text
+Sequence / cue range / timeline in–out:
+Location, time, point of view and opening state:
+What the audience knows coming in:
+What the subject wants; obstacle or source of tension:
+Visible choice, action or discovery:
+What changes by the end:
+Because this happened, the following sequence begins with:
+Returning image or gesture and what it means this time:
+```
+
+Read the cards aloud in order, joining them with “because” or “therefore.” Fix gaps where the link is only “and then we see another image.” At a location or time jump, plant a destination, decision, visual detail, or sound cue before the cut. In the receiving scene, reveal enough geography or behavior to orient the viewer. For a repeated chorus, choose one recurring composition or gesture and change one meaningful thing each time: who initiates it, who witnesses it, or what it costs. Write the final image at this stage so the opening can plant its meaning.
+
+**Find the image that belongs to this song.** Choose a lyric, memory, gesture or visual contradiction from the artist's answers. Design one shot that would lose its meaning if transplanted into a different song. Write what we see first, what the performer or camera reveals next, and what the audience understands on the last frame. Plant an earlier detail that makes this reveal possible. Give this shot priority when allocating reference work, rehearsal time and credits.
+
+## 4. Design coverage and the handoff at every cut
+
+Plan in groups of neighboring shots. Draw a quick overhead map for each recurring space. Mark camera side, subject and prop positions, doorways, direction of travel, main light and eyelines. Choose the side of the action axis from which left and right read consistently. If the camera crosses that axis, show it crossing in the take or use a neutral view that re-establishes both sides.
+
+Give every shot a single editorial job such as establish, pursue, reveal, interrupt, react, decide, or resolve. Write **what the audience learns and the exact frame or action that earns the cut**. Cover a complicated action with the angles the editor actually needs. A wide can establish the geography, a moving medium can carry the choice, and a close reaction can show the cost. A continuous master may do all three through blocking and a change in framing.
+
+For every adjacent pair, write a one-line **handoff** and choose a cut type:
+
+| Cut | Record for outgoing and incoming shots |
+|---|---|
+| Match on action | Who moves, with which hand or foot, in which screen direction, and at what phase to cut. Render a little of the same action on both sides so the editor can select the matching frame. |
+| Eyeline / point of view | Who looks, their screen side and look direction, the target's position and distance, and the reverse angle or reaction that confirms what they saw. |
+| Graphic or motion match | Exact shape, frame position, approximate size, or motion vector shared across the cut. Identify the first new detail that reveals the change of place or time. |
+| Reveal through an obstruction | What crosses the lens, which edge it enters and exits, how much it covers, and what the viewer discovers on the other side. Give the foreground object depth in the still. |
+| Hard contrast, time jump or dissolve | Why the discontinuity matters, the audible cue or visual anchor that carries us across it, and the landmark that orients us after it. Budget picture handles on both sides for a dissolve. |
+
+**Pair review.** Put the outgoing end pose next to the incoming opening still. Check direction, framing, eyeline, light, costume, prop hand, actor position, emotional state and action phase. Write the intended difference explicitly. If the cut is hard to read, change the angle, blocking, or receiving frame while the images are inexpensive to change. Repeat this check with actual moving clips later.
+
+**Give the editor a way through a difficult beat.** Identify the one shot the sequence depends on and mark the exact moment most likely to fail, such as two hands passing a small object. Plan a second way to tell that beat using existing coverage first. In the platform example, cut from Nia extending the letter to Jo's eyes dropping, then reveal the letter already in Jo's hand as she looks up. The audience infers the exchange and still sees what it means to Jo. Budget a pickup only if the available coverage cannot make that cut. For action, establish the target and distance before accelerating and show a consequence or reaction after the impact.
+
+## 5. Choose duration and camera movement together
+
+### Read the duration options before locking the shot list
+
+Use the authenticated CLI's `tool_list` to confirm the generation tool, then read `who_am_i` for the current account. Under `availableModels` (or `available_models`), find the tool, its selected model, and the `arguments` entry named `duration`. Read its **`allowedValues`**, unit, default and any conditions that apply to the planned resolution, input roles, or single/multi-shot mode. Record the date, tool, model, allowed seconds and applicable conditions in the production record. Refresh the record after a model, tool, account or relevant mode change, or a parameter rejection. If the options are unavailable or ambiguous, continue planning edit beats and defer paid submission until the allowed lengths are confirmed.
+
+**Account snapshot for comparison.** The authenticated CLI returned these values for `image_to_video` on 20 November 2026. An interval in this table means **every whole second** in the interval was explicitly listed. Future sessions should use their own live response.
+
+| Model listed under `image_to_video` | Allowed render seconds | Within this project's 15 s cap |
+|---|---|---|
+| Kling 2.5, 2.6 | 5 or 10 | 5 or 10 |
+| Kling O1 | 3–10 | 3–10 |
+| Kling 3.0, 3.0 Omni, 3.0 Turbo | 3–15 | 3–15 |
+| Kling 4.0 | 3–30 | 3–15 |
+| Kling 4.0 Flash | 3–20 | 3–15 |
+
+The standard Kling 3.0 duration description says longer durations *may* require `prefer_multi_shots`. Check that condition when planning an unbroken take. Other generation tools have their own model entries.
+
+**Choose and validate each shot.** Add edit frames and required handle frames, then divide by the timeline frame rate to get the minimum source seconds at normal playback speed. From the live allowed values that satisfy the shot's settings and the artist's cap, choose the smallest value that covers that minimum. Assign any spare frames to trim allowance. Save the chosen seconds in the manifest, use that same value in the Kling request, and check membership again before submission. If no value fits, redesign the coverage or revise the handles on the timeline. Update the stills, end pose, prompt timing and estimate together.
+
+For example, a 7 s edit plus two 1 s handles needs 9 s of source. On the verified 4.0 model, request 9 s. On the verified 2.6 model, request 10 s and keep the extra second for trimming. A 12 s uninterrupted edit cannot fit 2.6's longest source even with zero handles. Plan a cut and its matching stills, or choose an approved model and mode that supports the take.
+
+Track **edit duration** (frames used on the song timeline) and **render duration** (the source clip including handles). Time the performance against the recording: setup → decision or action → consequence. Add head/tail handles where a trim, movement match, dissolve, or sustained reaction needs them. Choose the shortest supported render length that fits this performance **and** its handles. Use up to **15 seconds per generated clip** when the scene earns it. A brief insert may use less than the model's minimum in the finished edit.
+
+| Creative timing range (choose a legal render length above) | What can justify it | Camera or performance decision |
+|---|---|---|
+| 3–4 s | Insert, visual punctuation, interruption, quick reaction | Begin close to the action. Land one unambiguous change. |
+| 5–7 s | A gesture followed by a readable response, short pursuit, one reveal | Let the subject initiate the move. Settle long enough to catch the response. |
+| 8–11 s | Tracking shot through a space, tension that builds before a decision, an exchange in two planes | Use blocking or a foreground pass to change what the audience can see mid-take. |
+| 12–15 s | A sustained performance or continuous action whose emotional effect depends on watching the change happen | Design an opening position, a middle turn on a musical cue, and a distinct ending composition. Budget handles inside the cap. |
+
+If a 15-second **edit** also needs handles, redesign the coverage, overlap another shot, or choose an edit point that works without handles. If the selected model offers different increments, choose a supported duration and trim to the frame in the edit. A shorter supported model can cover a long beat with planned cuts. Agree on a different model if an unbroken long take is essential. Allocate the shot count after timing the story. Raw footage can exceed the song runtime.
+
+**Put the decisive action inside the selected frames.** A handle is spare footage the editor can trim. A nine-second render with one second of handle at each end gives a seven-second edit from source second 1 up to second 8. If the lyric accent occurs five seconds into this edit, aim the corresponding gesture at source second 6. Mark the actual frame where it lands after rendering and adjust the source in/out against the song. When a retime is needed, inspect hands, footfalls, lip sync and camera speed through the adjustment.
+
+### Direct the camera like a person with a reason to move
+
+In each shot specify **whose attention guides the camera, where the lens starts, what triggers movement, its path relative to the subject, how its speed changes, and the composition where it lands**. Use lens and rig descriptions to express visible results. A wide lens close to a moving subject gives strong foreground parallax. A distant long-lens view compresses the crowd around a face. Focal lengths are aesthetic guidance unless the tool provides a real optical control.
+
+| Dramatic need | A playable camera and performance direction |
+|---|---|
+| Urgency | Start knee-high beside a runner. Accelerate as the back foot pushes off, track level with the hip as pillars cross foreground, then brake when the runner spots someone. Keep the destination on the same side of the frame. |
+| A power shift | Begin over the seated person's shoulder. As they stand and take the floor, arc a quarter turn on the established side of the axis. Land low in a two-shot with the previous speaker small in depth. |
+| Recognition | Hold the near subject sharp as their gaze lifts. On the breath, rack focus to the person they spotted in the far doorway. Hold the frame as that person recognizes them. |
+| Intimacy | Keep the camera nearly still at eye level. Let the performer lean into focus, begin to speak, reconsider, and lower their hand. Cut when their partner understands. |
+| Release or escalation | Follow a dancer from behind a partition into open space. Rise as they commit to the leap. Land in a wide that finally reveals the waiting ensemble. |
+| Shock or dislocation | Let a motivated turn whip the camera toward its target. Use the peak motion for an edit only if the receiving shot continues the same vector and blur. A held, quiet aftermath can carry the next line. |
+
+Read a whole sequence's camera directions together. If three setups have the same scale, speed, height and push, ask what each repetition expresses. Keep a deliberate refrain. For an accidental repeat, change the viewer's relationship to the action: switch to the target's viewpoint, let the subject overtake the lens, or hold wide and let something enter. Pick one dominant camera path per short clip. Use compound movement in a long take when each change follows visible action.
+
+**Give the performer something to do to another person.** Choose a playable intention such as “keep her from leaving without admitting why.” Pick the moment the first tactic fails and a visible change of tactic: Nia tries to call out, sees Jo turn away, then runs. Decide whose reaction the audience needs and how long it takes to register. Direct the lens to witness that decision. For choreography, mark the supporting foot, direction of weight transfer, and landing accent. For visible singing, use the agreed recording and a supported sync workflow, then review mouth closure on consonants and sustained vowels on the timeline. Keep a usable reaction or alternate angle for a line whose sync fails.
+
+## 6. Make stills that can become those shots
+
+### Establish the cast and the set
+
+Build a **continuity book** from the agreed art direction. Keep the original approved images as individual files that can be attached to the relevant generation. Contact sheets are convenient for an editor to compare views. Give each reference a stable filename and version so a later session or parallel worker can load the same source. Use the artist's supplied likeness or location photographs where agreed. For an invented cast or set, select a master design first and derive the other views from it. Check those views against the master before accepting them.
+
+| Produce | Include | How to use it |
+|---|---|---|
+| **Character sheet** for each recurring person | Clear front, three-quarter and profile views, a full-body view, and any expression or back view the story depends on. Record a few visible identifiers that survive different lighting or shot sizes, such as hairline, facial proportions, silhouette or habitual posture. Label asymmetric features on the person's **anatomical** left or right. | Use the nearest approved angle for a close-up, the body and wardrobe view for a wide, and a paired blocking still for a two-shot. Give each performer a distinct action and position when both appear. |
+| **Wardrobe and prop states** | Photograph or derive each meaningful state, such as coat dry/open, coat wet/fastened, letter folded, letter opened. Label who wears or holds it, which hand, and the story event that changes it. | Assign the appropriate state to each shot by **story time**. A flashback or repeated chorus can revisit an earlier state even when rendered later. |
+| **Location sheet** for each recurring set | Establishing wide, a clean view without cast, the reverse angle the edit needs, and a simple overhead sketch. Mark two or three permanent landmarks, entrances, actor marks, camera positions and physical light sources. Record time, weather, set dressing and practical lights for each scene state. | Derive new angles from the same layout. A window on the west wall stays on the west wall as the camera turns. Its screen position and the side of the face it lights can change. Use the map to work out what belongs in each view. |
+
+For animation, puppets, abstract motifs or nonhuman leads, adapt the character sheet to proportions, construction, line weight, characteristic motion and permitted transformations. A silhouette or gesture may be the defining feature. Keep expressions, poses, camera heights and lighting free to change wherever the story calls for them.
+
+### Generate related key stills from a scene master
+
+Make one **master frame** showing how the approved elements fit together. Choose a useful production angle, often a wide or medium two-shot. Dress the cast, place the hero prop in the correct hand, establish scale against a landmark, and place the light source in the physical set. Compare this frame with the individual references. Save it at full resolution alongside the clean set image. For a return at night or after a major story event, derive and label the new state from the same set.
+
+| What changes in the next still? | How to make it |
+|---|---|
+| Only framing, from the same viewpoint and instant | Crop the approved high-resolution frame when enough pixels remain for delivery. This preserves the actual face, prop and background. If the close-up needs more detail, use the crop for composition and an approved detail reference. |
+| Same camera, new expression, hand position or prop state | Start from the accepted still. If the tool supports masks, edit the smallest useful region. Include contact points, shadows and reflections affected by the change. Inspect the surrounding image afterward. |
+| New camera angle, or a move revealing another side | Build a fresh composition using the approved cast view nearest that angle and the corresponding set view or floor plan. Take wardrobe, scale and blocking from the scene master. If a newly visible side will recur, establish its design once and save that view. |
+| Exact artwork, lettering, insignia or intricate prop detail | Reuse the approved source asset or photograph as a layer where practical. Match perspective, occlusion, light and shadow. Save the layered source for repairs. For a mark that must stay exact through motion, plan a tracked overlay in finishing. |
+
+**Give each reference a job.** Tell the image generator which attachment supplies likeness, which supplies set geometry, and which supplies the current outfit or prop state. For two people, identify each by position and action. If only one image input is supported, use an approved assembled frame containing the visible elements for that setup. If the tool accepts only text, build the still with a reference-capable editor or compositing step. A repeated prompt or seed alone cannot guarantee matching people or objects across new viewpoints.
+
+**Example image edit.** “Use the attached platform two-shot as the base. Nia is at frame left holding the folded cream letter in her right hand. Jo is at frame right by the striped pillar, with the red cuff on her left wrist. Jo now lowers her gaze to the letter. Keep the camera, light, both faces, distance between their hands and fold in the paper consistent with the base image.” For a reverse shot, supply the reverse set view and translate that same handoff into the new viewpoint.
+
+**Review stills together before animation.** Compare the master, candidate and edit neighbor side by side. At delivery size inspect faces, proportions, costume details, prop count and handedness. At thumbnail size check blocking, silhouette, architecture and light direction. If a single detail has drifted, repair that detail and recheck the pair. Save the accepted still, its input filenames and versions, what changed, and any mask or layer used. Feed that exact still into animation. Parallel workers can build independent shots once they share the approved masters and versions.
+
+### Carry the state from one shot to the next
+
+Keep a continuity ledger keyed to the shot list. Enter the **story state on arrival**, the visible change during the shot, and the **state on departure**. For a deliberate discontinuity, record its story reason and the first image or lyric that makes it legible. Attach the actual reference files to each job in the roles the selected tool supports. A character name or reference ID typed into a prompt is a production label and needs its corresponding image.
+
+| Shot and references | State entering | Change on camera | State leaving / next cut |
+|---|---|---|---|
+| Platform 020 · Nia three-quarter, Jo profile, platform wide, folded letter | Nia has the letter in her right hand. Jo waits at the door beside the striped pillar, red cuff on her left wrist. | Nia runs toward Jo, slows and extends the letter. | Nia still owns the letter. Record the selected exit frame, the height of her hand and how far it is from Jo. |
+| Platform 030 · same cast and wardrobe, tighter platform view, 020 exit frame for hand position | From the new angle, Nia's right hand continues the reach. The door and striped pillar retain their physical relationship. | Jo takes the letter with her left hand. Nia lets go, then sees Jo look up. | Jo owns the folded letter. Later inserts inherit that state until we see her unfold it. |
+
+Use the **actual selected frame at the intended cut** as evidence. For a continuous camera move, an accepted exit frame can become the next opening image when supported. For a reverse or tighter angle, build a fresh opening still from the cast and set references, translating the recorded pose and hand position to the new viewpoint. A chain of renders can gradually change the face or architecture. Compare every new angle against the approved masters as well as the previous shot.
+
+### Check the hardest sequence before scaling up
+
+Choose two or three consecutive shots the edit already needs. Include a difficult change such as wide to close, a reverse angle, two people exchanging an object, or a face emerging from shadow. Build their opening stills first. Ask whether the viewer can recognize the same people and place without the song or filenames, and whether the camera can make the planned move through that space. Resolve discrepancies in the master or the affected still before animating. Use these shots for the first budgeted motion sequence in section 8.
+
+Create one separate, full-resolution opening still per shot in the delivery aspect ratio. Give high-dependency shots a target end still as well. Add a midpoint reference for a demanding long take if the tool supports it. Where a precise cut depends on the end of a preceding render, treat the planned still as provisional and anchor the receiving shot to the **accepted outgoing frame or its observable state**. Return to master character references regularly to prevent accumulated drift.
+
+**Compose for the move.** Put the subject in the starting pose *before* the decisive action. Leave lead room in the direction of travel, show clear space for hands and props, and place foreground, subject, and background at plausible distances. For a reveal, stage what initially hides the information and where it will be discovered. For a reaction, keep the eyes and the stimulus's direction readable. For a long tracking shot, draw the travel route and ending camera position before generating the first image.
+
+```text
+STILL PROMPT • replace every bracket
+One [format] opening frame in [agreed medium/style]. [Character/reference IDs
+and visible distinguishing details] at [screen position], [precise starting
+pose, gaze and prop hand], a moment before [action]. Camera at [height and
+angle], [framing and lens perspective]. Foreground [object], middle [subject],
+background [landmark or target]. Leave [space] for [planned motion].
+Light from [screen side/source], [time and palette]. Match [neighbor or
+reference] on [specific shared details]. The still must show [critical evidence].
+```
+
+Build a timed storyboard or animatic using these stills over the actual song, including planned holds and temporary cuts. Watch once muted for story and geography, then with audio for lyric impact. Review the hardest location change, biggest camera move and most subtle performance at their real edit lengths. If the story fails in stills, repair the cue, coverage or handoff here. Save and deliver the approved board and animatic.
+
+## 7. Turn each approved shot into a Kling prompt
+
+Discover the current account's available tools, models, reference roles, length increments, ratio, output resolution, sound controls, download options and costs. If the available mode accepts only a first frame, establish the exact cast, outfit, set and blocking in the approved opening still. If separate subject, scene or end-frame inputs are supported together, bind each file to its intended role and record the mapping. Use an end frame for a precise landing when it represents a physically reachable pose and camera position. Keep the actual settings, model version and reference versions with the prompt so a pickup can use the same setup.
+
+```text
+KLING MOTION PROMPT • one shot
+Open exactly on [first-frame file/role]. [Subject, starting stance and gaze].
+On [visible trigger], [subject performs one specific action with direction,
+effort, speed and prop contact]. [Partner or environment's physical response].
+The camera starts [scale, height, position, perspective]. As [trigger], it
+[single motivated path relative to subject, change of pace, focus target].
+By [timing landmark], frame [precise end composition, pose, gaze, prop state].
+Let [gesture or reaction] settle for the edit. Preserve [relevant identity,
+wardrobe, geometry, screen direction, light]. [Specific constraint if needed.]
+```
+
+Convert musical triggers into observable cues and relative times when Kling receives only an image. “At about 4 s she sees the train doors close and stops” is actionable. “Match the beat perfectly” requires a usable audio reference and still needs editorial verification. Give the rendered clip a concrete beginning, middle and end. Direct micro-performance through weight, eyes, breath, grip and hesitation. Use motion in clothing, reflections or dust only when it responds to the action. Clean the final prompt of storyboard shorthand, Markdown emphasis, alternate camera options, other shots' instructions and transitions that belong in the edit.
+
+Before submitting, **read the prompt while looking at the exact input frame**. Point to the subject, the action's starting position, and the space the camera or performer will enter. Read it once at performance speed. A closed fist cannot release a letter already lying on a table. A tight profile cannot reveal a person behind the camera with a focus pull. Repair the still, camera path or coverage wherever the instructions conflict. Keep the prompt's priority clear enough that a successful take can be described in one observable sentence.
+
+### Worked sequence • an original lyric and a different visual world
+
+**Direction chosen for this example only:** warm observational realism at a morning train platform. Nia has kept a letter from her sister Jo. Nia wants to give it to her before departure. Frame geography: platform pillars on the left, train on the right, morning light from screen left, Nia travels left to right, letter in Nia's right hand. The recurring red cuff identifies Jo. Illustrative timeline at 24 fps. The 6 s, 9 s and 14 s source lengths below are valid for the verified Kling 4.0 image-to-video entry and include one second at each end for editing. Recalculate them for the model used in production.
+
+| Shot / song time / lyric cue | Opening still and action | Camera, cut and reason for length |
+|---|---|---|
+| 010 · 00:40–00:44 · “I kept the page folded” · edit 4 s / render 6 s | Chest-up three-quarter view. Nia holds the letter against her collarbone, thumb sealing the crease. Jo’s red cuff enters at frame right. Nia lifts her eyes. | Hold the frame so eyes and letter are both visible. Nia loosens her grip and turns toward the cuff. Cut on the first shift of her shoulder. Four seconds give us both the gesture and its cause. |
+| 020 · 00:44–00:51 · “I ran before the whistle” · edit 7 s / render 9 s | Begin medium-wide on the same shoulder movement. Nia pushes off toward Jo at the train door, letter still in her right hand. | Track beside Nia. A pillar briefly hides Jo. When she reappears, Nia brakes and extends the letter. Cut while the extension is still in progress. Seven seconds carry the run, recognition, and stop. |
+| 030 · 00:51–01:03 · “This time you get to read it” and held note · edit 12 s / render 14 s | Tight two-shot on the same side of the axis. Nia at left extends her right hand, Jo at right sees the letter and accepts it with her left. | Hold both hands during the exchange. As Jo looks up, ease back to include both faces. Keep Nia in frame to see her exhale under the held note. The silence between acceptance and eye contact earns the long take. |
+
+**Ready-to-use motion prompt for 020**
+
+> Begin waist-high on the supplied platform frame. Nia waits left of center, folded cream letter in her right hand. Give her a moment of stillness. At about one second her right shoulder dips as she pushes off toward screen right. Track alongside at her pace. A near pillar sweeps across the foreground and briefly hides Jo. As it clears, Jo's red cuff catches the morning light at the train door. Nia sees her and shortens her stride. Brake with Nia into a steady medium two-shot. By about six seconds Nia begins to extend the letter. Keep the reach readable through second eight, with daylight still visible between their hands. Let the reach settle during the final second. Finish with Nia on the left, Jo on the right and the letter still folded.
+
+**How to cut it:** inspect the last usable moving frames of 020. Build 030's opening with the same extension phase, hand and travel direction, from a tighter angle on the established side. If 020 already shows the transfer, trim before contact or start 030 with Jo holding the letter and cut to her reaction. Check against the sung word on the real timeline. This choice fixes a visible double handoff even if both generated clips look good individually.
+
+## 8. Produce in sequence and review in the edit
+
+1. Estimate source seconds × current rate for each model and resolution. Include approved stills, alternate coverage and any pickup reserve. Keep source seconds separate from final runtime. If exact pricing is unavailable, record the uncertainty and the artist's approved limits.
+2. Start with a small group of **real, budgeted production shots** containing a difficult handoff or performance. Cut the actual renders over the audio and inspect the result. These accepted shots belong to the final sequence. Resolve repeated issues in the reference still or prompt before spending on similar shots.
+3. Queue independent shots within the actual service and account limits. Sequence-dependent shots wait for an accepted reference or end pose. Give each worker a unique shot/version assignment. Maintain a shared ledger with prompt, reference files, settings, generation ID, returned work index, attempt, status and cost when supplied. Record acceptance immediately and resume existing tasks by ID.
+4. Watch each moving take at normal speed, then scrub the cut points. Check identity, hands, physical contact, direction, camera motivation, focus, flicker, geometry, and whether the performer actually makes the intended choice. A valid MP4 header proves only the file container. A still or thumbnail cannot demonstrate motion quality.
+5. Cut each new take between its neighbors with the song. Ask “What changed? What made it happen? Where does my eye go next? Did I feel the lyric land?” Check action once across the cut, consistent eyelines, and adequate head/tail frames. Record accepted source in/out frames. If motion inspection is unavailable, mark the take *awaiting visual review* and supply a local preview for the editor.
+6. Diagnose misses before requesting a pickup. A late gesture may be fixed by slipping the edit. An unexplained location change needs a bridge. A face drifting during an orbit may need a shorter arc, stronger reference, or a different angle. Wrong prop hand usually means repairing the still pair. Change the smallest thing that fixes the story and check the pair again. Keep prior takes versioned.
+7. If a submission loses its task ID, preserve safe diagnostic information and check recoverable task history before spending again. If the first job cannot be identified, flag the possible duplicate charge and obtain the artist's decision. Refresh expired media links against the successful job. Download accepted assets promptly.
+
+### Inspect continuity in the rendered footage
+
+Compare the opening, the hardest moment of motion, and the selected exit frame against the approved character and location references. Scrub turns, foreground obstructions and prop contact frame by frame if anything changes unexpectedly. Play the outgoing clip directly into its neighbor at edit speed. Also compare the character or set's first appearance to its **later return**. Adjacent cuts alone can hide gradual drift. For a 12–15 second take, inspect each change in blocking or lighting along the way.
+
+Record the take and timecode of any mismatch, the reference that shows the intended state, and the affected shot IDs. If a face changes after a turn, try trimming to an earlier usable cut or repairing the moving take with the approved profile. If a reverse angle invents a second doorway, rebuild that still against the set map and render the affected shot. If a transfer plays twice, adjust the source cut points. If an upstream take changes, revisit only the downstream shots that inherited its pose or scene state. Mark continuity accepted when the chosen frames play together and the intended people, place and action remain legible. Flag unresolved visual issues in the handoff.
+
+### Watch a rough cut and decide what to change
+
+Watch the whole working cut once with the song, full screen, with shot labels hidden and without pausing. Immediately write down the image you remember, the moment you felt the change, and the first place your attention dropped or geography became unclear. When an artist review is in scope, let them watch before explaining the concept. Ask what they thought happened at the turn and which image stayed with them. Compare their reading to the intent in the brief. Ambiguity the artist wants to preserve can be a successful result.
+
+Return to the timecodes and edit the highest-impact issue first. If the payoff was clear but flat, try holding the reaction across the next phrase. If the listener missed the turn, try moving its visual setup earlier. If a new shot merely restates the lyric, remove it on a duplicate timeline and watch through the join. Compare both versions with the same audio. Log the chosen cut and a reason. Commission a new render when this edit exposes a missing image or performance that the existing material cannot supply.
+
+For the agreed finishing pass, match neighboring shots in exposure, color balance, saturation and texture. Use the sequence's approved look frame and check skin or the principal subject through the cut. Preserve intentional changes in light. Keep camera originals available for the artist's final grade. Review titles or captions in the delivery crop where requested. Mute generated clip audio in the music edit unless a specific sound was chosen, and place approved sound effects on separate editable tracks.
+
+## 9. Package everything for the editor
+
+Produce and download the actual files into the agreed project folder. Keep one accepted, numbered still and one accepted, numbered watermark-free video per shot in their respective selects folders. Preserve intentional A/B shots as separate assets. Place alternate takes and reference frames outside the selects. Use a shared stem, for example `S02_030_Letter_Exchange`, across images, clips and records. Use the edit-order field to sort insertions or revisions.
+
+```text
+Project/
+  00_Brief/             agreed brief, treatment, decisions, delivery specs
+  01_Audio_Lyrics/      original supplied master, lyrics, Tension_Map.csv,
+                        Tension_Overview.png
+  02_References/        artwork, cast masters, wardrobe/prop states, set views,
+                        floor plans, style guide, reference IDs and versions
+  03_Storyboard/        sequence cards, shot list, boards, timed animatic
+  04_Stills/            numbered approved opening stills; end frames and keyframes
+  05_Video_Selects/     separate numbered watermark-free source clips
+  06_Edit/              edit map, transition notes, review cut with song when available,
+                        editor interchange or final master if agreed
+  07_Production/        continuity ledger and cut-frame references, exact
+                        prompts/settings, generation and download records,
+                        actual media specs, QC notes, README and delivery index
+  Alternates/           superseded versions or optional coverage
+```
+
+**Maintain one shot record from storyboard to delivery.** Separate linked tables are fine if they share the same stable shot ID. Record:
+
+- **Edit:** sequence, order, shot ID/version, cue IDs, lyric/event, timeline in/out, emotional change, render seconds, selected source in/out, handles, cut intent.
+- **Direction:** opening state, actor action, camera position/path/endpoint, lighting and continuity locks, incoming/outgoing match, reference IDs, still prompt and motion prompt.
+- **Production:** model/settings, reference roles, generation ID, work index, attempt and status, approved take, actual cost when known, review result and any pickup reason.
+- **Files:** relative local paths for source stills, keyframes and downloaded clip, measured dimensions, duration, frame rate, codec, audio stream state, file size and watermark-free source confirmation. Stable IDs and local paths keep the delivery usable when provider links expire.
+
+**Before handing over**, reconcile every planned shot against a local file. Use a media probe to read each clip's actual dimensions, aspect, frame rate, codec and duration. Decode media to catch truncation. Check that every selected frame range exists, all required clips came from the provider's watermark-free export, and any generated audio is handled as agreed. Inspect actual frames for unwanted marks or text. Play the sequence with the final recording, including the opening, every scene transition and the final frame. Verify measured edit runtime, sync, missing media, flash frames and audio continuity. Where a check cannot be performed, name the exact item pending.
+
+**Conform the edit from measured frames.** Record the source stream's frame rate and frame count, and the timeline's rate. Set source and timeline in/out for each event, applying any rate conversion deliberately. For example, at 24 fps a four-second slot takes 96 frames. A 97-frame source starting at frame zero can fill that slot with the range [0, 96), leaving the final frame available. When the cut is ready, compare the actual timeline endpoint to the audio master and check the sync landmarks at the beginning, middle and end. If an editable project or interchange was requested, reopen it and relink from the delivered folder, then compare the reconstructed cut with the review export.
+
+Deliver a clickable local folder, the numbered clip and still folders, the timed cue/shot map, the animatic or review cut, and the production index. If the artist is doing final editing, provide the source ranges and handoff notes that let them reconstruct the recommended sequence. Report planned shots, accepted shots and verified local downloads separately. The finished package should let a new editor answer three questions without reading the chat: **which file goes here, what should happen on this lyric, and exactly where can I cut to the next shot?**

@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101111"><meta name="description" content="The clip manifest is the source of truth for the still filename, prompt, duration, and story beat. Do not silently swap the still, rewrite the prompt, change the model,…"><title>Approval, billing, and the jobs ledger · AETHER</title><link rel="stylesheet" href="style.css"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"><script defer src="site.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Primary"><a href="manual.html">Manual</a><a href="system.html" aria-current="page">System</a><a href="workshop.html">Prompt lab</a><a href="casebook.html">Casebook</a><a href="film.html">Film</a></nav><a class="download" href="files/production-field-guide.pdf" download="Sound_into_Picture_Illustrated_Field_Guide.pdf" aria-label="Download PDF of the illustrated field guide">Download PDF</a></header><main id="main"><div class="reading-layout"><aside class="reader-sidebar"><a class="eyebrow" href="system.html">System handbook</a><div><a href="system-architecture.html" ><small>01</small>System architecture: protocol, tools, and local work</a><a href="system-auth-and-session.html" ><small>02</small>Authorization boundaries and session verification</a><a href="system-audio-to-edit.html" ><small>03</small>Audio to edit: map cues into timecode</a><a href="system-writing-prompts.html" ><small>04</small>Constructing motion prompts from a fixed first frame</a><a href="system-orchestration.html" ><small>05</small>Orchestrating delegated media work</a><a href="system-worker-dispatch.html" ><small>06</small>Hands-on guide to dispatching media workers</a><a href="system-ledger-and-approvals.html" aria-current="page"><small>07</small>Approval, billing, and the jobs ledger</a><a href="system-failure-recovery.html" ><small>08</small>Task states, lost responses, and safe recovery</a><a href="system-delivery-and-qa.html" ><small>09</small>Watermark-free delivery and quality checks</a></div></aside><article class="reading"><div class="reading-head"><a href="system.html" class="eyebrow">System handbook / System notes</a><h1>Approval, billing, and the jobs ledger</h1></div><details class="contents"><summary>On this page</summary><a href="#section-1">Treat the manifest as the production contract</a><a href="#section-2">Approval before paid work</a><a href="#section-3">Billing and audit trail</a><a href="#section-4">Sanitized ledger example</a></details><div class="prose"><h2 id="section-1">Treat the manifest as the production contract</h2>
+<p>The clip manifest is the source of truth for the still filename, prompt, duration, and story beat. Do not silently swap the still, rewrite the prompt, change the model, or alter output settings while submitting. Keep the actual provider result in a separate ledger so the creative brief and the job record remain independently reviewable.</p>
+<p>A useful manifest row contains:</p>
+<div class="table-wrap" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clip label and still filename</td>
+<td>Identifies the exact job input</td>
+</tr>
+<tr>
+<td>Prompt and duration</td>
+<td>Defines requested motion and timing</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Model, aspect ratio, resolution, and output count</td>
+</tr>
+<tr>
+<td>Reference role</td>
+<td>Confirms the still is the first frame or another supported slot</td>
+</tr>
+</tbody></table></div>
+<p>The result ledger should add the generation ID, trace ID, task terminal status, original <code>works[]</code> index, content type, returned result link, and failure note. A download ledger should record the task ID, terminal status, local path, byte count, refreshed watermark-free URL, and validation failure, if any.</p>
+<h2 id="section-2">Approval before paid work</h2>
+<p>Before the first paid request, show the user the final model, prompt summary, duration, aspect ratio, resolution, output count, reference role, and actual billing information when the provider exposes it. Obtain explicit confirmation for the paid settings. If the user already confirmed unchanged settings for the batch, subsequent jobs with the same settings need not be reconfirmed; a material change needs a new approval.</p>
+<p>Immediately before each paid submission, run the pinned CLI’s account check. Stop if the balance is missing, zero or negative, or the provider reports insufficient credits. A positive balance is a useful guard but does not prove that it covers the entire batch when exact per-job cost or conversion to an external API-unit estimate is unknown. Keep estimates and observed account credits in separate columns or notes; never present one as a conversion for the other.</p>
+<h2 id="section-3">Billing and audit trail</h2>
+<p>Paid generation is an external side effect. The ledger must let a reviewer answer:</p>
+<ol>
+<li>Which approved still and prompt were submitted?</li>
+<li>Which model and settings were used?</li>
+<li>Which account preflight immediately preceded the call?</li>
+<li>What task and trace IDs did the CLI return?</li>
+<li>Did the task finish, and which video work was selected?</li>
+<li>Was a duplicate submission attempted?</li>
+</ol>
+<p>Keep the trace ID as a grouping label, not as a task lookup key or idempotency token. The generation ID is the identifier used to query a specific task. Do not remove failed or ambiguous rows; record their state and why the workflow stopped.</p>
+<h2 id="section-4">Sanitized ledger example</h2>
+<p>The following is a format example only. IDs are placeholders; it contains no provider URL or account data.</p>
+<pre><code class="language-csv">Clip,GenerationID,TraceID,TerminalStatus,WorkIndex,ContentType
+030_example.png,EXAMPLE_GENERATION_ID,EXAMPLE_TRACE_ID,COMPLETED,0,video
+</code></pre>
+<p>The real ledger may carry a refreshed signed URL where needed for the next authorized step, but keep that file in the protected project area and do not paste the URL into chat or ordinary logs.</p>
+</div><div class="reader-end"><a href="system-worker-dispatch.html"><small>Previous</small>Hands-on guide to dispatching media workers</a><a href="system-failure-recovery.html"><small>Next chapter</small>Task states, lost responses, and safe recovery</a></div></article></div></main><footer><div><a class="brand" href="index.html" aria-label="Aether field guide home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>AETHER<span class="brand-sub">FIELD GUIDE</span></a><p>Sound into Picture · A music video production manual</p></div><div class="foot-links"><a href="files/music-video-production-brief.md" download>Master prompt (.md)</a><a href="files/production-field-guide.pdf" download>Illustrated field guide (.pdf)</a><a href="archive.html">Shot archive</a><a href="film.html">Watch Black Star</a></div></footer></body></html>
