@@ -234,3 +234,5 @@ if (el('shotInputs')) {
   });
   update();
 }
+
+el('visitCue')?.addEventListener('click', () => { location.hash = el('jumpCue').value; });
