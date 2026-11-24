@@ -61,10 +61,8 @@ if (el('frames')) {
   const linked = new Map();
   let localVideoUrl;
   el('localClips').addEventListener('change', event => {
-    const expected = new Map(shots.map(shot => [shot.filename.replace(/\.png$/i,'.mp4').toLowerCase(), shot.id]));
     for (const file of event.target.files) {
-      const id = expected.get(file.name.toLowerCase());
-      if (id) linked.set(id, file);
+      for (const shot of shots) if (shot.filename.toLowerCase() === file.name.toLowerCase()) linked.set(shot.id, file);
     }
     el('localStatus').textContent = linked.size + ' of ' + shots.length + ' original clips linked for this visit.';
     showShots();
@@ -80,7 +78,7 @@ if (el('frames')) {
     image.src = 'assets/frames/' + shot.id + '.webp';
     image.alt = shot.action;
     const fields = make('dl');
-    for (const [key, value] of [['Source duration', shot.duration + ' seconds'], ['Action', shot.action], ['Camera', shot.camera], ['Submitted motion prompt', shot.prompt]]) {
+    for (const [key, value] of [['Edit duration', shot.duration + ' seconds'], ['Action', shot.action], ['Camera', shot.camera], ['Production direction', shot.prompt]]) {
       fields.append(make('dt', key), make('dd', value));
     }
     if (linked.has(shot.id)) {
@@ -121,7 +119,7 @@ if (el('cutSelect')) {
     const label = shot.id + ' / ' + shots[i+1].id + ' · ' + shot.title + ' to ' + shots[i+1].title;
     selector.add(new Option(label, String(i)));
   });
-  selector.value = String(Math.max(0, shots.findIndex(shot => shot.id === '025')));
+  selector.value = String(Math.max(0, shots.findIndex(shot => shot.id === '020')));
   function renderCut() {
     const i = Number(selector.value);
     const figures = [shots[i],shots[i+1]].map((shot,side) => {
@@ -160,15 +158,7 @@ const presets = {
     'Hold the red cuff and envelope near the right third. The next reverse begins on Jo closing her fingers.',
     'Letter in Nia’s right hand, red cuff on Jo’s left wrist. Train stays screen right. Preserve the coat, morning light and platform axis.'
   ],
-  glass: [
-    'BS-W01', 'Approved captain portrait, suit and collar detail, window master, prior corridor exit',
-    'The captain stands in a cold observation bay. A second outline hangs motionless beyond the window.',
-    'Close three-quarter profile. Eyes on the reflection, right glove braced against the lower edge of the glass.',
-    'As the bass drops away, the reflection turns first. A beat later the captain’s breath catches and his glove slides down.',
-    'Slide laterally along the near window mullion. Reveal the displaced reflection, then rack focus back to the eye.',
-    'Settle on the captain’s eye in the upper left. Cut to the exterior on the same eyeline.',
-    'Keep the collar seals, visor shape and consistent window hardware. Cyan light stays screen right. Keep the two eyelines distinct.'
-  ],
+  glass: ["DNC-17 / placement 30", "Running start frame, woman and man cast sheets", "Barefoot dancers on a reflective eclipse stage with fixed gold pillars.", "Wide rear three-quarter view. Both runners lean forward near the lower left.", "On the double count they push off the floor and sprint diagonally away.", "Lock the wide camera so the floor seams measure their progress.", "They pass the first pillar and keep running into depth.", "Black tank and trousers on her, black long sleeves and trousers on him. Both barefoot. Same fixed pillars, light and floor seams."],
   empty: Array(8).fill('')
 };
 const labels = ['Shot ID', 'Approved references', 'Subject and setting', 'Opening frame and performance', 'Musical cue and visible action', 'Camera path and motivation', 'Exit frame and next cut', 'Continuity locks'];
@@ -177,7 +167,7 @@ if (el('shotInputs')) {
     const wrap = make('label', label);
     const field = make(index === 0 ? 'input' : 'textarea');
     field.id = 'field-' + index;
-    field.value = presets.platform[index];
+    field.value = presets.glass[index];
     field.addEventListener('input', update);
     wrap.append(field);
     el('shotInputs').append(wrap);
